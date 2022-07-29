@@ -1,4 +1,4 @@
-# [Deployed Website](livechatroom-c8bc4.web.app)
+# [Deployed Website](https://livechatroom-c8bc4.web.app/)
 ## Project setup
 ```
 npm install

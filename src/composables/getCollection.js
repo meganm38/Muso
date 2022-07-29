@@ -1,10 +1,11 @@
-import { collection, onSnapshot, orderBy } from "firebase/firestore";
+import { collection, onSnapshot, query as queryDb, where, getDocs } from "firebase/firestore";
 import { ref, watchEffect } from "vue";
 import { db } from "../firebase/config";
 
 const getCollection = (collectionName) => {
 	const error = ref("");
 	const documents = ref(null);
+	const queryDocuments = ref([])
 
 	const unsubscribe = onSnapshot(
 		collection(db, collectionName),
@@ -26,7 +27,19 @@ const getCollection = (collectionName) => {
 		onInvalidate(() => unsubscribe());
 	});
 
-	return { error, documents };
+	const getQueryDocuemnts = async (query) => {
+		const ref = collection(db, collectionName);
+		// Create a query against the collection.
+		const q = queryDb(ref, where(query.arg1, query.arg2, query.arg3));
+
+		const querySnapshot = await getDocs(q);
+
+		querySnapshot.forEach((doc) => {
+			queryDocuments.value.push({...doc.data(), id: doc.id})
+		});
+	};
+
+	return { error, documents, getQueryDocuemnts, queryDocuments };
 };
 
 export default getCollection;

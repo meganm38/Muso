@@ -5,7 +5,10 @@
         <h1><router-link :to="{ name: 'Home'}">Muso</router-link></h1>
         <div class="links">
             <div v-if="currentUser">
-            <button @click="handleLogout">Logout</button>
+                <router-link :to="{ name: 'CreatePlaylist'}">Create Playlist</router-link>
+                <router-link :to="{ name: 'UserPlaylists'}">My Playlist</router-link>
+                <span>Hi there, {{ currentUser.displayName }}</span>
+                <button @click="handleLogout">Logout</button>
             </div>
             <div v-else>
                 <router-link class="btn" :to="{ name: 'Signup' }">Signup</router-link>
@@ -60,5 +63,12 @@ export default {
     }
     img {
         max-height: 60px;
+    }
+    span {
+        font-size: 14px;
+        display: inline-block;
+        margin-left: 16px;
+        padding-left: 16px;
+        border-left: 1px solid #eee;
     }
 </style>

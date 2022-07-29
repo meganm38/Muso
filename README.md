@@ -1,5 +1,3 @@
-# muso-ninjas
-
 ## Project setup
 ```
 npm install

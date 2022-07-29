@@ -11,15 +11,18 @@
 <script>
 import { ref } from '@vue/reactivity'
 import useLogin from '../../composables/useLogin'
+import { useRouter } from 'vue-router'
+
 export default {
     setup() {
+      const router = useRouter()
         const { error, login } = useLogin()
         const email = ref('')
         const password = ref('')
 
         const handleLogin = async () => {
             await login(email.value, password.value)
-            console.log('user logged in')
+            router.push('/')
         }
 
         return { error, handleLogin, email, password }

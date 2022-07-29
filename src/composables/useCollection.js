@@ -3,17 +3,21 @@ import { ref } from "vue";
 import { db } from "../firebase/config";
 
 const useCollection = (collectionName) => {
-	const error = ref("");
+	const dbError = ref("");
+	const dbPending = ref(false)
 
 	const addDocToDb = async (doc) => {
 		try {
-			await addDoc(collection(db, collectionName), doc);
+			dbPending.value = true
+			const docRef = await addDoc(collection(db, collectionName), doc);
+			dbPending.value = false
+			return docRef
 		} catch (err) {
-			error.value = err.message;
+			dbError.value = err.message;
 		}
 	};
 
-	return { error, addDocToDb };
+	return { dbError, addDocToDb, dbPending };
 };
 
 export default useCollection;

@@ -1,8 +1,16 @@
 <template>
+  <NavbarVue/>
   <div class="content">
     <router-view/>
   </div>
 </template>
+
+<script>
+  import NavbarVue from "./components/Navbar.vue";
+  export default {
+    components: {NavbarVue}
+  }
+</script>
 
 <style>
   .content {

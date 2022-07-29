@@ -2,7 +2,7 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { ref } from "vue";
 import { auth } from "../firebase/config";
 
-const error = ref(null);
+const error = ref("");
 
 const signup = async (email, password, displayName) => {
 	try {
@@ -15,7 +15,6 @@ const signup = async (email, password, displayName) => {
 			throw new Error("Unsuccessful signup");
 		}
 		await updateProfile(auth.currentUser, { displayName: displayName });
-		error.value = null;
 		return userCredential;
 	} catch (err) {
 		error.value = err.message;
